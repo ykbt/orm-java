@@ -1,0 +1,29 @@
+version: '2'
+services:
+
+  dbserver:
+    image: mysql
+    volumes:
+    - ./sql:/docker-entrypoint-initdb.d
+    - mysql-db:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: ormdb
+      MYSQL_USER: orm
+      MYSQL_PASSWORD: orm
+      MYSQL_ROOT_PASSWORD: password
+
+  app:
+    build: .
+    image: ykbt-orm
+    depends_on:
+    - dbserver
+    ports:
+    - "8080:8080"
+    volumes:
+    - .:/app
+    environment:
+      JAR_FILE: ykbt-orm-java-1.0-SNAPSHOT.jar
+
+volumes:
+  mysql-db:
+    driver: local
