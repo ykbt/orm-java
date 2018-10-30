@@ -1,6 +1,7 @@
 buildscript {
     repositories {
         mavenCentral()
+        jcenter()
     }
 }
 
@@ -21,6 +22,7 @@ sourceCompatibility = targetCompatibility = 1.8
 
 repositories {
     mavenCentral()
+    jcenter()
 }
 
 dependencies {
@@ -28,6 +30,10 @@ dependencies {
     compile 'org.springframework.boot:spring-boot-starter-web'
     compile 'org.springframework.boot:spring-boot-starter-data-jpa'
     compile 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    compile 'org.mybatis.spring.boot:mybatis-spring-boot-starter:1.3.2'
+
+    compile 'mysql:mysql-connector-java:8.0.12'
+
     compileOnly 'org.projectlombok:lombok:1.18.2'
     testCompile group: 'junit', name: 'junit', version: '4.12'
 
@@ -42,4 +48,7 @@ checkstyle {
         checkstyleClasspath += sourceSets.main.runtimeClasspath
     }
 }
+
+apply plugin: 'java'
+apply plugin: 'groovy'
 

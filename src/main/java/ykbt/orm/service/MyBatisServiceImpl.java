@@ -2,23 +2,20 @@ package ykbt.orm.service;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import ykbt.orm.entity.UserEntity;
-import ykbt.orm.repository.JpaRepository;
+import ykbt.orm.mapper.MyBatisMapper;
 import ykbt.orm.resource.UserResource;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
-@Service
-public class JpaServiceImpl implements OrmService {
-
+public class MyBatisServiceImpl implements OrmService {
     @Autowired
-    JpaRepository repository;
+    MyBatisMapper mapper;
 
     public List<UserResource> getUsers() {
-        List<UserEntity> entities = repository.findAll();
+        List<UserEntity> entities = mapper.findAll();
         List<UserResource> resources = new ArrayList<>();
         entities.stream().forEach(entity -> {
             UserResource resource = new UserResource();
@@ -29,7 +26,11 @@ public class JpaServiceImpl implements OrmService {
     }
 
     public UserResource getUser(Integer id) {
-        UserEntity entity = repository.getOne(id);
+        if(id == null){
+            return null;
+        }
+
+        UserEntity entity = mapper.get(id);
         UserResource resource = new UserResource();
         BeanUtils.copyProperties(entity, resource);
 
@@ -38,11 +39,18 @@ public class JpaServiceImpl implements OrmService {
 
     @Transactional
     public UserResource addUser(UserResource resource) {
-        if (resource.getId() != null) {
+        if (resource == null || resource.getId() == null) {
             return null;
         }
 
-        return updateUser(resource);
+        UserEntity entity = new UserEntity();
+        BeanUtils.copyProperties(resource, entity);
+
+        UserEntity addedEntity = mapper.get(mapper.save(entity));
+        UserResource addedResouce = new UserResource();
+        BeanUtils.copyProperties(addedEntity, addedResouce);
+
+        return addedResouce;
     }
 
     //saveメソッドは INSERT or UPDATE
@@ -51,15 +59,15 @@ public class JpaServiceImpl implements OrmService {
         UserEntity entity = new UserEntity();
         BeanUtils.copyProperties(resource, entity);
 
-        UserEntity addedEntity = repository.saveAndFlush(entity);
-        UserResource addedResource = new UserResource();
-        BeanUtils.copyProperties(addedEntity, addedResource);
+        UserEntity updatedEntity = mapper.get(mapper.update(entity));
+        UserResource updatedResource = new UserResource();
+        BeanUtils.copyProperties(updatedEntity, updatedResource);
 
-        return addedResource;
+        return updatedResource;
     }
 
     @Transactional
     public void deleteUser(Integer id) {
-        repository.deleteById(id);
+        mapper.delete(id);
     }
 }
