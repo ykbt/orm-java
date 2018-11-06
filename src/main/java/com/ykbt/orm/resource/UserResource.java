@@ -1,4 +1,4 @@
-package ykbt.orm.resource;
+package com.ykbt.orm.resource;
 
 import lombok.Data;
 

@@ -1,12 +1,13 @@
-package ykbt.orm.service;
+package com.ykbt.orm.service;
 
+import com.ykbt.orm.repository.JpaRepository;
+import com.ykbt.orm.resource.UserResource;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ykbt.orm.entity.UserEntity;
-import ykbt.orm.repository.JpaRepository;
-import ykbt.orm.resource.UserResource;
+import com.ykbt.orm.entity.UserEntity;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,6 +36,7 @@ public class JpaServiceImpl implements OrmService {
         return resource;
     }
 
+    @Transactional
     public UserResource addUser(UserResource resource) {
         if (resource.getId() != null) {
             return null;
@@ -44,6 +46,7 @@ public class JpaServiceImpl implements OrmService {
     }
 
     //saveメソッドは INSERT or UPDATE
+    @Transactional
     public UserResource updateUser(UserResource resource) {
         UserEntity entity = new UserEntity();
         BeanUtils.copyProperties(resource, entity);
@@ -55,6 +58,7 @@ public class JpaServiceImpl implements OrmService {
         return addedResource;
     }
 
+    @Transactional
     public void deleteUser(Integer id) {
         repository.deleteById(id);
     }

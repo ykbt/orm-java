@@ -1,20 +1,20 @@
-package ykbt.orm.controller;
+package com.ykbt.orm.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-import ykbt.orm.resource.UserResource;
-import ykbt.orm.service.OrmService;
+import com.ykbt.orm.resource.UserResource;
+import com.ykbt.orm.service.OrmService;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("api/v1/jpa/users")
-public class JpaController {
+@RequestMapping("api/v1/mybatis/users")
+public class MybatisController {
 
     @Autowired
-    @Qualifier("jpaServiceImpl")
+    @Qualifier("mybatisServiceImpl")
     OrmService service;
 
 
@@ -36,9 +36,16 @@ public class JpaController {
         return service.addUser(resource);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public UserResource updateUser(@RequestBody UserResource resource) {
+        return service.updateUser(resource);
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public UserResource updateUser(@PathVariable("id") Integer id, @RequestBody UserResource resource) {
+        resource.setId(id);
         return service.updateUser(resource);
     }
 
