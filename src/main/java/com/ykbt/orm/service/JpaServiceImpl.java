@@ -1,11 +1,11 @@
-package ykbt.orm.service;
+package com.ykbt.orm.service;
 
+import com.ykbt.orm.repository.JpaRepository;
+import com.ykbt.orm.resource.UserResource;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ykbt.orm.entity.UserEntity;
-import ykbt.orm.repository.JpaRepository;
-import ykbt.orm.resource.UserResource;
+import com.ykbt.orm.entity.UserEntity;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;

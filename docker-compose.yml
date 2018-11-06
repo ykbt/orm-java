@@ -11,6 +11,8 @@ services:
       MYSQL_USER: orm
       MYSQL_PASSWORD: orm
       MYSQL_ROOT_PASSWORD: password
+    ports:
+    - "3306:3306"
 
   app:
     build: .
@@ -22,7 +24,7 @@ services:
     volumes:
     - .:/app
     environment:
-      JAR_FILE: ykbt-orm-java-1.0-SNAPSHOT.jar
+      JAR_TARGET: ykbt-orm-java-1.0-SNAPSHOT.jar
 
 volumes:
   mysql-db:

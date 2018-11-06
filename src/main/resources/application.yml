@@ -1,2 +1,43 @@
+spring:
+  profiles:
+    active: localhost
+
+---
+spring:
+  profiles: localhost
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/ormdb
+    username: orm
+    password: orm
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    show-sql: true
+  data:
+    rest:
+      base-path: /orm
 mybatis:
-  config-location: classpath:mybatis-config.xml
+  configuration:
+    map-underscore-to-camel-case: true
+    default-fetch-size: 100
+    default-statement-timeout: 60
+
+---
+spring:
+  profiles: docker
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://dbserver/ormdb
+    username: orm
+    password: orm
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    show-sql: true
+  data:
+    rest:
+      base-path: /orm
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+    default-fetch-size: 100
+    default-statement-timeout: 60

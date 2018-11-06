@@ -1,4 +1,4 @@
-package ykbt.orm.controller;
+package com.ykbt.orm.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

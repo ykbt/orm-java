@@ -6,6 +6,6 @@ VOLUME /tmp
 RUN mkdir /app
 WORKDIR /app
 
-ENV JAR_FILE "ykbt-orm-java-1.0-SNAPSHOT.jar"
+ENV JAR_TARGET "ykbt-orm-java-1.0-SNAPSHOT.jar"
 
-ENTRYPOINT ["sh","-c","java -jar -Dspring.profiles.active=docker build/libs/${JAR_FILE}"]
+ENTRYPOINT ["sh","-c","java -jar -Dspring.profiles.active=docker build/libs/${JAR_TARGET}"]

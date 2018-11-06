@@ -1,6 +1,6 @@
-package ykbt.orm.service;
+package com.ykbt.orm.service;
 
-import ykbt.orm.resource.UserResource;
+import com.ykbt.orm.resource.UserResource;
 
 import java.util.List;
 
