@@ -48,11 +48,13 @@ public class JooqServiceImpl implements OrmService {
         UserEntity entity = new UserEntity();
         BeanUtils.copyProperties(resource, entity);
 
-        if (repository.save(entity) != 1){
+        int id = repository.save(entity);
+
+        if (id < 0){
             throw new RuntimeException("insertに失敗しました Entity:" + entity);
         }
 
-        UserEntity addedEntity = repository.get(entity.getId());
+        UserEntity addedEntity = repository.get(id);
         UserResource addedResouce = new UserResource();
         BeanUtils.copyProperties(addedEntity, addedResouce);
 
@@ -69,6 +71,7 @@ public class JooqServiceImpl implements OrmService {
         BeanUtils.copyProperties(resource, entity);
 
         repository.update(entity);
+
         UserEntity updatedEntity = repository.get(entity.getId());
         UserResource updatedResource = new UserResource();
         BeanUtils.copyProperties(updatedEntity, updatedResource);

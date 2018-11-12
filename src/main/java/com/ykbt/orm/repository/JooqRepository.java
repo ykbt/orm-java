@@ -57,16 +57,14 @@ public class JooqRepository {
         return record.getId().intValue();
     }
 
-    public int update(UserEntity entity) {
+    public void update(UserEntity entity) {
         if (entity == null && entity.getId() == null) {
             throw new IllegalArgumentException("updateに失敗しました、Entityにはidを必ず含めてください");
         }
 
         UpdateConditionStep<UserRecord> step = createUpdate(entity);
 
-        UserRecord record = step.returning(USER.ID).fetchOne();
-
-        return record.getId().intValue();
+        step.execute();
     }
 
     public void delete(int id) {
