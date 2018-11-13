@@ -13,6 +13,8 @@ buildscript {
     }
 }
 
+
+
 plugins {
     id 'java'
     id "org.springframework.boot" version '2.0.4.RELEASE'
@@ -22,6 +24,14 @@ plugins {
     id 'nu.studer.jooq' version '3.0.2'
 }
 
+sourceSets {
+    main {
+        output.resourcesDir = java.outputDir
+    }
+}
+
+idea.module.outputDir file "out/production/classes"
+
 jar {
     baseName = 'ykbt-orm-java'
     version '1.0-SNAPSHOT'
@@ -30,7 +40,9 @@ jar {
 sourceCompatibility = targetCompatibility = 1.8
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 
+// JavaクラスとSQLファイルの出力先ディレクトリを同じにする
 processResources.destinationDir = compileJava.destinationDir
+// コンパイルより前にSQLファイルを出力先ディレクトリにコピーするために依存関係を逆転する
 compileJava.dependsOn processResources
 
 repositories {

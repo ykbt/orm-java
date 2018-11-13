@@ -1,23 +1,22 @@
 package com.ykbt.orm.entity;
 
 import lombok.Data;
+import org.seasar.doma.*;
+import org.seasar.doma.jdbc.entity.NamingType;
 
-import javax.persistence.*;
-import java.io.Serializable;
 
-@Entity
+@Entity(naming = NamingType.SNAKE_LOWER_CASE)
 @Table(name = "user")
 @Data
-public class UserEntity implements Serializable {
+public class UserDomaEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Integer id;
 
-    @Column(name="first_name")
+
     private String firstName;
 
-    @Column(name="last_name")
+
     private String lastName;
 }

@@ -1,9 +1,9 @@
 package com.ykbt.orm.dao;
 
+import com.ykbt.orm.entity.UserDomaEntity;
 import com.ykbt.orm.entity.UserEntity;
 import org.seasar.doma.*;
 import org.seasar.doma.boot.ConfigAutowireable;
-import org.seasar.doma.jdbc.SqlLogType;
 
 import java.util.List;
 
@@ -11,17 +11,17 @@ import java.util.List;
 @Dao
 public interface DomaDao {
 
-    @Select(sqlLog = SqlLogType.RAW)
-    List<UserEntity> findAll();
+    @Select
+    List<UserDomaEntity> findAll();
 
-    @Select(sqlLog = SqlLogType.RAW)
-    UserEntity get(int id);
+    @Select
+    UserDomaEntity get(int id);
 
-    @Insert(sqlLog = SqlLogType.RAW)
-    int save(UserEntity entity);
+    @Insert
+    int save(UserDomaEntity entity);
 
-    @Update(sqlLog = SqlLogType.RAW)
-    int update(UserEntity entity);
+    @Update
+    int update(UserDomaEntity entity);
 
     @Delete(sqlFile = true)
     int delete(int id);

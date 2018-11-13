@@ -70,7 +70,8 @@ public class JooqRepository {
     public void delete(int id) {
         dsl
                 .delete(USER)
-                .where(USER.ID.eq(UInteger.valueOf(id)));
+                .where(USER.ID.eq(UInteger.valueOf(id)))
+                .execute();
     }
 
     private UserEntity convertToEntity(UserRecord record) {
