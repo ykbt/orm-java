@@ -21,6 +21,9 @@ mybatis:
     map-underscore-to-camel-case: true
     default-fetch-size: 100
     default-statement-timeout: 60
+doma:
+  dialect: mysql
+  sql-file-repository: no_cache
 
 ---
 spring:
@@ -41,3 +44,6 @@ mybatis:
     map-underscore-to-camel-case: true
     default-fetch-size: 100
     default-statement-timeout: 60
+doma:
+  dialect: mysql
+  sql-file-repository: no_cache
