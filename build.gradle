@@ -30,7 +30,7 @@ sourceSets {
     }
 }
 
-idea.module.outputDir file "out/production/classes"
+idea.module.outputDir file("out/production/classes")
 
 jar {
     baseName = 'ykbt-orm-java'
@@ -83,7 +83,7 @@ checkstyle {
 // gradleに環境設定書く必要があるのやだなあ
 // gradle使わない方法もあるみたいだけどめんどくさそう
 jooq {
-    user (sourceSets.main) {
+    user(sourceSets.main) {
         jdbc {
             driver = "com.mysql.cj.jdbc.Driver"
             url = 'jdbc:mysql://localhost:3306/ormdb'
